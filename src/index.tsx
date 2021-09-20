@@ -1,8 +1,10 @@
+import React from 'react';
 import { MemoryRouter } from 'react-router';
 import blessed from 'blessed';
 import { render } from 'react-blessed';
 import * as dotenv from 'dotenv';
 import App from './App';
+import ClientProvider from './auth/ClientProvider';
 
 dotenv.config();
 
@@ -22,8 +24,10 @@ const screen = blessed.screen({
 screen.key(["q", "C-c"], () => process.exit(0));
 
 const component = render(
-    <MemoryRouter>
-        <App />
-    </MemoryRouter>,
+    <ClientProvider>
+        <MemoryRouter>
+            <App />
+        </MemoryRouter>
+    </ClientProvider>,
     screen
 );
